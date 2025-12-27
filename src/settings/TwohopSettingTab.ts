@@ -22,6 +22,7 @@ export interface TwohopPluginSettings {
   createFilesForMultiLinked: boolean;
   frontmatterPropertyKeyAsTitle: string;
   frontmatterKeys: string[];
+  debug?: boolean;
   [key: string]: boolean | string | string[] | number | undefined;
 }
 
@@ -134,6 +135,11 @@ export class TwohopSettingTab extends PluginSettingTab {
       "Create new files for links that are connected to more than one other file.",
       "createFilesForMultiLinked"
     );
+    this.createToggleSetting(
+      "Enable Debug Logging",
+      "If true, the plugin will output debug logs to the console.",
+      "debug"
+    );
     this.createTextSettingStr(
       "Set frontmatter property key as title",
       "Set the property key of the frontmatter to be used as the title to be displayed.",
@@ -153,6 +159,10 @@ export class TwohopSettingTab extends PluginSettingTab {
         toggle.setValue(!!this.plugin.settings[key]).onChange(async (value) => {
           this.plugin.settings[key] = value;
           await saveSettings(this.plugin);
+          // apply debug setting immediately when toggled
+          if (key === "debug" && typeof (this.plugin as any).applyDebugSetting === "function") {
+            (this.plugin as any).applyDebugSetting();
+          }
           this.plugin.updateTwoHopLinksView();
           if (key === "showTwoHopLinksInSeparatePane") {
             this.display();

@@ -32,17 +32,57 @@ export default class TwohopLinksPlugin extends Plugin {
 
   private previousLinks: string[] = [];
   private previousTags: string[] = [];
+  // keep previous console methods so we can restore them
+  private prevConsole: Partial<Console> = {};
 
   async onload(): Promise<void> {
-    console.debug("------ loading obsidian-twohop-links plugin");
-
     this.settings = await loadSettings(this);
+    this.applyDebugSetting();
+    console.debug && console.debug("------ loading obsidian-twohop-links plugin");
     this.showLinksInMarkdown = true;
     this.links = new Links(this.app, this.settings);
 
     this.initPlugin();
   }
 
+  applyDebugSetting() {
+    const isDebug = !!this.settings?.debug;
+    // store previous console methods so we can restore them
+    if (!this.prevConsole.log) {
+      this.prevConsole.log = console.log.bind(console);
+      this.prevConsole.debug = console.debug?.bind(console);
+      this.prevConsole.info = console.info?.bind(console);
+      this.prevConsole.warn = console.warn?.bind(console);
+      this.prevConsole.error = console.error?.bind(console);
+      this.prevConsole.group = console.group?.bind(console);
+      this.prevConsole.groupCollapsed = console.groupCollapsed?.bind(console);
+      this.prevConsole.groupEnd = console.groupEnd?.bind(console);
+    }
+
+    if (!isDebug) {
+      // no-op most console methods when debug is off
+      console.log = (() => {}) as any;
+      console.debug = (() => {}) as any;
+      console.info = (() => {}) as any;
+      console.warn = (() => {}) as any;
+      console.error = (() => {}) as any;
+      console.group = (() => {}) as any;
+      console.groupCollapsed = (() => {}) as any;
+      console.groupEnd = (() => {}) as any;
+    } else {
+      // restore
+      if (this.prevConsole.log) console.log = this.prevConsole.log as any;
+      if (this.prevConsole.debug) console.debug = this.prevConsole.debug as any;
+      if (this.prevConsole.info) console.info = this.prevConsole.info as any;
+      if (this.prevConsole.warn) console.warn = this.prevConsole.warn as any;
+      if (this.prevConsole.error) console.error = this.prevConsole.error as any;
+      if (this.prevConsole.group) console.group = this.prevConsole.group as any;
+      if (this.prevConsole.groupCollapsed)
+        console.groupCollapsed = this.prevConsole.groupCollapsed as any;
+      if (this.prevConsole.groupEnd)
+        console.groupEnd = this.prevConsole.groupEnd as any;
+    }
+  }
   async initPlugin() {
     this.addSettingTab(new TwohopSettingTab(this.app, this));
     this.registerView(
