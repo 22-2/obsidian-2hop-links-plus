@@ -13,6 +13,7 @@ interface PropertiesLinksListViewProps {
   displayedSectionCount: number;
   initialDisplayedEntitiesCount: number;
   resetDisplayedEntitiesCount: boolean;
+  title?: string;
 }
 
 interface LinkComponentProps {
@@ -23,6 +24,8 @@ interface LinkComponentProps {
   app: App;
   initialDisplayedEntitiesCount: number;
   resetDisplayedEntitiesCount: boolean;
+  isFirst: boolean;
+  mainTitle?: string;
 }
 
 interface LinkComponentState {
@@ -73,6 +76,13 @@ const LinkComponent = React.memo(
     render(): JSX.Element {
       return (
         <div className="twohop-links-section" key={this.props.tagLink.property}>
+          {this.props.isFirst && this.props.mainTitle && (
+            <div
+              className={"twohop-links-box twohop-links-properties-header"}
+            >
+              {this.props.mainTitle}
+            </div>
+          )}
           <div
             className={`${
               this.props.tagLink.key
@@ -131,6 +141,8 @@ const PropertiesLinksListView = React.memo(
                 resetDisplayedEntitiesCount={
                   this.props.resetDisplayedEntitiesCount
                 }
+                isFirst={index === 0}
+                mainTitle={this.props.title}
               />
             ))}
         </div>

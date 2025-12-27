@@ -252,6 +252,7 @@ export default class TwohopLinksRootView extends React.Component<
             }
             initialDisplayedEntitiesCount={this.props.initialBoxCount}
             resetDisplayedEntitiesCount={this.props !== this.state.prevProps}
+            title={"Tag Links"}
           />
         )}
         {this.state.displayedSectionCount.tagLinksList <
@@ -276,6 +277,7 @@ export default class TwohopLinksRootView extends React.Component<
             }
             initialDisplayedEntitiesCount={this.props.initialBoxCount}
             resetDisplayedEntitiesCount={this.props !== this.state.prevProps}
+            title={"Property Links"}
           />
         )}
         {this.state.displayedSectionCount.frontmatterKeyLinksList <

@@ -23,6 +23,7 @@ interface LinkComponentProps {
   app: App;
   initialDisplayedEntitiesCount: number;
   resetDisplayedEntitiesCount: boolean;
+  isFirst: boolean;
 }
 
 interface LinkComponentState {
@@ -86,6 +87,13 @@ class LinkComponent extends React.Component<
         className={"twohop-links-section " + "twohop-links-resolved"}
         key={this.props.link.link.linkText}
       >
+        {this.props.isFirst && (
+          <div
+            className={"twohop-links-box twohop-links-connected-links-header"}
+          >
+            2-Hop Links
+          </div>
+        )}
         <div
           className={"twohop-links-twohop-header twohop-links-box"}
           onClick={async () => this.props.onClick(this.props.link.link)}
@@ -139,6 +147,7 @@ class TwohopLinksView extends React.Component<TwohopLinksViewProps> {
               resetDisplayedEntitiesCount={
                 this.props.resetDisplayedEntitiesCount
               }
+              isFirst={index === 0}
             />
           ))}
       </div>
