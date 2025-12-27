@@ -6,31 +6,31 @@
 /* switch light/dark mode */
 .theme-light {
   --bg-box: #ffffff;
-  --bg-box-top: #e2e2e2;
-  --title-box: #363c49;
-  --text-box: #b7b7b7;
-  --bg-header-twohop: #9babc1;
+  --bg-box-top: #e2e8f0;
+  --title-box: #1e293b;
+  --text-box: #64748b;
+  --bg-header-twohop: #94a3b8;
   --title-header-twohop: #ffffff;
-  --bg-header-new: #fd7373;
+  --bg-header-new: #f87171;
   --title-header-new: #ffffff;
-  --bg-header-connected: #5e8af6;
+  --bg-header-connected: #60a5fa;
   --title-header-connected: #ffffff;
-  --bg-header-properties: #46af5d;
+  --bg-header-properties: #4ade80;
   --title-header-properties: #ffffff;
 }
 
 .theme-dark {
-  --bg-box: #373b44;
-  --bg-box-top: #2b2e38;
-  --title-box: #f0f0f0;
-  --text-box: #b4b5b6;
-  --bg-header-twohop: #2b2e38;
-  --title-header-twohop: #dddede;
-  --bg-header-new: #fb7476;
+  --bg-box: #1e293b;
+  --bg-box-top: #334155;
+  --title-box: #f1f5f9;
+  --text-box: #94a3b8;
+  --bg-header-twohop: #334155;
+  --title-header-twohop: #e2e8f0;
+  --bg-header-new: #ef4444;
   --title-header-new: #ffffff;
-  --bg-header-connected: #80c9fe;
-  --title-header-connected: #202277;
-  --bg-header-properties: #46af5d;
+  --bg-header-connected: #3b82f6;
+  --title-header-connected: #ffffff;
+  --bg-header-properties: #22c55e;
   --title-header-properties: #ffffff;
 }
 
